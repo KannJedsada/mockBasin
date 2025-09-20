@@ -1,54 +1,56 @@
 <template>
-  <div class="items-center gap-2 rounded-lg px-2 py-1 text-white shadow-lg z-10">
+  <div class="flex flex-col items-end">
+    <!-- บน -->
     <div
-      class="flex items-center gap-2 p-2 rounded-lg"
-      :class="{
-        'bg-green-400': wl_diff < 0,
-        'bg-yellow-400': wl_diff == 0,
-        'bg-red-400': wl_diff > 0,
-        'bg-gray-500': wl_diff === null,
-      }"
+      class="flex items-center justify-end"
+      style="position: relative"
     >
       <div
-        class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-700 border-2 border-white"
-      >
-        <span class="text-md items-center">
-          {{
-            wl_diff > 0 ? '⇑' : wl_diff < 0 ? '⇓' : wl_diff === null ? '×' : '='
-          }}
-        </span>
-      </div>
-      <div class="flex flex-col">
-        <span class="text-sm font-bold">{{ title || 'N/A' }}</span>
-        <span class="font-semibold">{{ q_today || 'N/A' }}</span>
-      </div>
-      <div
-        class="flex items-center gap-1 bg-white rounded px-2 py-1 ml-2 text-sm"
+        class="border-4 p-2 bg-white rounded-full"
         :class="{
-          'text-green-600': wl_diff_brae_lv < 0,
-          'text-yellow-600': wl_diff_brae_lv == 0,
-          'text-red-600': wl_diff_brae_lv > 0,
-          'text-gray-600': wl_diff_brae_lv === null,
+          'border-green-400 border': wl_diff < 0,
+          'border-yellow-400 border': wl_diff == 0,
+          'border-red-400 border': wl_diff > 0,
+          'border-gray-500 border': wl_diff === null,
         }"
+        style="position: relative; left: 25px; z-index: 20"
       >
-        <span>
-          {{
-            wl_diff_brae_lv > 0
-              ? '⇑'
-              : wl_diff_brae_lv < 0
-              ? '⇓'
-              : wl_diff_brae_lv === null
-              ? '×'
-              : '='
-          }}
-        </span>
-        <span>
-          {{ wl_diff_brae_lv || 'N/A' }}
-        </span>
+        test
+      </div>
+      <div class="items-center rounded-lg px-2 py-1 text-white z-10">
+        <div
+          class="flex items-center gap-2 p-2 rounded-lg"
+          :class="{
+            'bg-green-400': wl_diff < 0,
+            'bg-yellow-400': wl_diff == 0,
+            'bg-red-400': wl_diff > 0,
+            'bg-gray-500': wl_diff === null,
+          }"
+        >
+          <div class="flex flex-col">
+            <span class="font-semibold ml-2">
+              {{ Math.round(q_today) || 'N/A' }}
+            </span>
+          </div>
+          <div
+            class="flex items-center gap-1 bg-white rounded px-2 py-1 text-sm"
+            :class="{
+              'text-green-600': wl_diff_brae_lv < 0,
+              'text-yellow-600': wl_diff_brae_lv == 0,
+              'text-red-600': wl_diff_brae_lv > 0,
+              'text-gray-600': wl_diff_brae_lv === null,
+            }"
+          >
+            <span>
+              {{ wl_diff_brae_lv.toFixed(2) || 'N/A' }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
+    <!-- ล่าง -->
     <div
-      class="text-xs text-white ml-2 px-2 py-1 rounded-md"
+      class="text-xs text-white px-2 py-1 rounded-md inline-block"
       :class="{
         'bg-green-400/80': wl_diff < 0,
         'bg-yellow-400/80': wl_diff == 0,
@@ -56,14 +58,13 @@
         'bg-gray-500/80': wl_diff === null,
       }"
     >
-      ({{ wl_diff || '0' }} ม. จากเมื่อวาน)
+       ({{ wl_diff || '0' }} ม. จากเมื่อวาน)
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
   const props = defineProps({
-    title: { type: String, default: 'สถานีวัดน้ำ' },
     q_today: { type: Number, default: 0 },
     wl_diff_brae_lv: { type: Number, default: 0 },
     wl_diff: { type: Number, default: 0 },

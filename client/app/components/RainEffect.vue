@@ -37,7 +37,7 @@
   .rain-drop {
     width: 50px;
     height: 2px;
-    border-right: 50px solid rgba(255, 255, 255, 0.7);
+    border-right: 50px solid rgba(17 149 236 / 0.7);
     border-top: 0;
     border-bottom: 0;
     border-left: 0;
@@ -53,7 +53,8 @@
       transform: rotate(105deg) translateX(0);
     }
     to {
-      transform: rotate(105deg) translateX(calc(100vh + 20px));
+      /* transform: rotate(105deg) translateX(calc(100vh + 20px)); */
+      transform: rotate(105deg) translateX(100vh);
     }
   }
 </style>

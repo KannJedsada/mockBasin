@@ -17,63 +17,149 @@
     <div v-else>
       <RainEffect />
       <div
-        class="fixed inset-0 z-1 bg-black flex items-center justify-center overflow-auto"
+        class="flex items-center justify-center fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        style="width: 1600px; height: 900px"
       >
         <img
           :src="getBasinImg(id)"
           :alt="`รูปภาพลุ่มน้ำ ${id}`"
-          class="w-screen h-screen object-cover"
-          style="margin: 24px; border-radius: 0; box-shadow: none"
+          class="object-cover"
+          style="width: 1600px; height: 900px"
         />
         <div
-          v-for="station in stationLocation"
-          :key="station.station_code"
-          class="absolute"
-          :style="{
-            left: `${station.x * 5.5}%`,
-            top: `${station.y * 21}%`,
-            transform: 'translate(-50%, -50%)',
-          }"
-        >
-          <!-- card -->
-          <div>
-            <WaterLevel
-              :title="station.station_code"
-              :q_today="station.q_today"
-              :wl_diff_brae_lv="station.wl_diff_brae_lv"
-              :wl_diff="station.wl_diff"
-            />
-          </div>
-        </div>
-        <!-- marker -->
-        <div v-for="dot in dotStation">
-          <div
-            class="absolute w-4 h-4 bg-red-600 border-2 border-white rounded-full shadow-lg"
-            :style="{
-              left: `${dot.x * 5.5}%`,
-              top: `${dot.y * 4.5}%`,
-              transform: 'translate(-50%, -50%)',
-            }"
-          ></div>
-        </div>
-        <div
-          v-for="arrow in arrowRiverLocation"
-          :key="arrow.direction"
-          class="absolute"
-          :style="{
-            left: `${arrow.x * 5.5}%`,
-            top: `${arrow.y * 4}%`,
-            transform: 'translate(-50%, -50%)',
-          }"
-        >
-          <ArrowRiver :direction="arrow.direction" />
-        </div>
-        <div
-          class="absolute top-8 left-8 text-white text-3xl font-bold drop-shadow-lg bg-black/50 px-6 py-2 rounded"
+          class="absolute top-8 left-0  transform -translate-x-1/2 text-white text-2xl font-bold rounded px-6 py-4 bg-black bg-opacity-50"
         >
           {{ title || 'ชื่อลุ่มน้ำ' }}
           <br />
-            ข้อมูล ณ วันที่: {{ formatThaiDate(data[data.length - 1]?.createat) }}
+          ข้อมูล ณ วันที่: {{ formatThaiDate(data[data.length - 1]?.measure_time) }}
+        </div>
+
+        <!-- card -->
+        <div
+          v-for="(station, index) in data"
+          :key="index"
+        >
+          <div>
+            <div
+              class="absolute"
+              :style="{
+                left: `${station.xProvince}px`,
+                top: `${station.yProvince}px`,
+                zIndex: 10,
+              }"
+            >
+              <div class="text-sm font-semibold text-gray-200">
+                {{ station.province || 'N/A' }}
+              </div>
+              <div class="text-xs text-gray-200">
+                รหัสสถานี: {{ station.station_code || 'N/A' }}
+              </div>
+            </div>
+            <div
+              :style="{
+                position: 'absolute',
+                left: `${station.xCard}px`,
+                top: `${station.yCard}px`,
+                zIndex: 10,
+              }"
+            >
+              <WaterLevel
+                :q_today="station.q_today"
+                :wl_diff="station.wl_diff"
+                :wl_diff_brae_lv="station.wl_diff_brae_lv"
+              />
+            </div>
+            <span
+              class="absolute w-4 h-4 border-2 border-white rounded-full shadow-lg"
+              :class="{
+                'bg-green-400': station.wl_diff_brae_lv < 0,
+                'bg-yellow-400': station.wl_diff_brae_lv == 0,
+                'bg-red-400': station.wl_diff_brae_lv > 0,
+                'bg-gray-500': station.wl_diff_brae_lv === null,
+              }"
+              :style="{
+                position: 'absolute',
+                left: `${station.xStation}px`,
+                top: `${station.yStation}px`,
+                zIndex: 10,
+              }"
+            ></span>
+          </div>
+        </div>
+
+        <!-- dam -->
+        <div
+          v-for="(dam, index) in dataDam"
+          :key="index"
+        >
+          <div
+            class="absolute"
+            :style="{
+              left: `${dam.xStaion}px`,
+              top: `${dam.yStation}px`,
+              zIndex: 10,
+            }"
+          >
+            <div>
+              <!-- {{ dam.water_resource_name || 'N/A' }} -->
+              <img
+                src="/images/dam.webp"
+                alt="Dam Icon"
+                class="inline-block h-10 ml-1"
+              />
+            </div>
+          </div>
+          <div>
+            <CardDam
+              :water_resource_name="dam.water_resource_name"
+              :value="dam.value"
+              :style="{
+                position: 'absolute',
+                left: `${dam.xValue}px`,
+                top: `${dam.yValue}px`,
+                zIndex: 10,
+              }"
+            />
+          </div>
+        </div>
+
+        <!-- footer -->
+        <div
+          class="absolute bottom-0 left-10 transform -translate-x-1/2 bg-black bg-opacity-50 rounded px-6 py-4 flex items-center gap-6 text-white text-lg font-semibold"
+        >
+          สัญลักษณ์:
+          <UIcon name="material-symbols:arrow-shape-up-rounded" />
+          <span>เพิ่มขึ้น</span>
+          <UIcon name="material-symbols:arrow-shape-down-rounded" />
+          <span>ลดลง</span>
+          <UIcon name="material-symbols:equal-rounded" />
+          <span>ทรงตัว</span>
+          <div class="flex flex-col items-start text-white text-md gap-2">
+            <div class="flex items-center gap-2">
+              <span
+                class="inline-block w-4 h-4 border-2 border-white rounded-full bg-green-400"
+              ></span>
+              <span>สถานีน้ำท่า</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span
+                class="inline-block w-4 h-4 border-2 border-white rounded-full bg-gray-500"
+              ></span>
+              <span>ไม่มีข้อมูล</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-white text-md">
+            <div>
+              - ระดับน้ำ
+              <span class="text-green-500">ต่ำ</span>
+              กว่าตลิ่ง
+            </div>
+            <div>
+              + ระดับน้ำ
+              <span class="text-red-500">สูง</span>
+              กว่าตลิ่ง
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -83,7 +169,7 @@
 <script setup lang="ts">
   import { ref, onMounted, computed } from 'vue'
   import WaterLevel from '~/components/waterLevel.vue'
-  import { BasinImgMap } from '~/enums/water-status'
+  import { BasinImgMap, BasinStation, DamStation } from '~/enums/water-status'
   import RainEffect from '~/components/RainEffect.vue'
 
   const route = useRoute()
@@ -91,7 +177,7 @@
   const title = route.query.title || 'รายละเอียดลุ่มน้ำ'
 
   const data = ref<any[]>([])
-  const dataResource = ref<any[]>([])
+  const dataDam = ref<any[]>([])
   const loading = ref(true)
   const error = ref('')
 
@@ -126,82 +212,27 @@
 
   onMounted(async () => {
     try {
-      console.log('Fetching data from server API...')
-      const testDb = await fetch('http://localhost:3000/api/testdb')
-      const testDbData = await testDb.json()
-      data.value = testDbData
-      // const res = await fetch(`/api/basin/${id}`)
-      // const response = await fetch(`/api/basin/resource?id=${id}`)
-      // if (!res.ok) throw new Error('ไม่สามารถโหลดข้อมูลได้')
-      // ถ้าข้อมูลไม่ใช่ array ให้แปลงเป็น array
-      if (!Array.isArray(data.value)) {
-        data.value = data.value ? [data.value] : []
+      const numId = Number(id)
+      const basinData = BasinStation.find((basin) => basin.basinId === numId)
+      const damData = DamStation.find((dam) => dam.basinId === numId)
+
+      if (basinData) {
+        data.value = basinData.stations
+      } else {
+        data.value = []
+      }
+
+      if (damData) {
+        dataDam.value = damData.stations
+      } else {
+        dataDam.value = []
       }
     } catch (e: any) {
-      console.error('Error:', e)
+      console.error('Error loading BasinStation data:', e)
       error.value = e.message
     } finally {
-      console.log('Final data:', data.value)
       loading.value = false
     }
-  })
-
-  const stationLocation = computed(() => {
-    // กำหนดตำแหน่ง x, y สำหรับแต่ละ station_code
-    const positionMap: Record<string, { x: number; y: number }> = {
-      'ABC_1': { x: 5.5, y: 1 },
-      'ABC_2': { x: 3.2, y: 2.5 },
-      // เพิ่ม station_code อื่นๆ ตามต้องการ
-    }
-    return data.value.map((station: any) => {
-      const pos = positionMap[station.station_code] || { x: 0, y: 0 }
-      return {
-        ...station,
-        x: pos.x,
-        y: pos.y,
-      }
-    })
-  })
-
-  const arrowRiverLocation = computed(() => {
-    const arrow = [
-      {
-        direction: 'down',
-        x: 5,
-        y: 5.5,
-      },
-      {
-        direction: 'left',
-        x: 4.5,
-        y: 7,
-      },
-      {
-        direction: 'left',
-        x: 6,
-        y: 8,
-      },
-      {
-        direction: 'down',
-        x: 4,
-        y: 12,
-      },
-      {
-        direction: 'down',
-        x: 4,
-        y: 14,
-      },
-    ]
-
-    return arrow
-  })
-
-  const dotStation = computed(() => {
-    return [
-      {
-        x: 4,
-        y: 12,
-      },
-    ]
   })
 </script>
 
