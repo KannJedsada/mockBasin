@@ -15,7 +15,28 @@
         }"
         style="position: relative; left: 25px; z-index: 20"
       >
-        test
+        <template v-if="wl_diff !== null">
+          <div>
+            <UIcon
+              v-if="wl_diff > 0"
+              name="material-symbols:arrow-shape-up-rounded"
+              class="text-red-400"
+            />
+            <UIcon
+              v-else-if="wl_diff < 0"
+              name="material-symbols:arrow-shape-down-rounded"
+              class="text-green-400"
+            />
+            <UIcon
+              v-else
+              name="material-symbols:equal-rounded"
+              class="text-yellow-400"
+            />
+          </div>
+        </template>
+        <template v-else>
+          <span class="text-gray-500">N/A</span>
+        </template>
       </div>
       <div class="items-center rounded-lg px-2 py-1 text-white z-10">
         <div
