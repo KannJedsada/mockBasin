@@ -12,11 +12,11 @@ export enum ImgBasinImg {
   KhongNorth = '/images/KhongNorth.jpg',
   Ping = '/images/Ping.jpg',
   Wang = '/images/Wang.jpg',
-  Yom = '/images/Yom.jpg',
+  Yom = '/images/Yom.png',
   Nan = '/images/Nan.jpg',
   KhongNortheast = '/images/KhongNortheast.png',
   Chi = '/images/Chi2.png',
-  Mun = '/images/Mun.png',
+  Mun = '/images/Mun.jpg',
   ChaoPhraya = '/images/ChaoPhraya.png',
   SakaeKrang = '/images/SakaeKrang.png',
   PaSak = '/images/PaSak.png',
@@ -26,6 +26,27 @@ export enum ImgBasinImg {
   PhetchaburiPrachuap = '/images/PhetchaburiPrachuap.jpg',
   UpperSouth = '/images/UpperSouth.png',
   LowerSouth = '/images/LowerSouth.png',
+}
+
+export enum BasinName {
+  Salawin = 'สาละวิน',
+  KhongNorth = 'โขงเหนือ',
+  Ping = 'ปิง',
+  Wang = 'วัง',
+  Yom = 'ยม',
+  Nan = 'น่าน',
+  KhongNortheast = 'ตะวันออกเฉียงเหนือ',
+  Chi = 'ชี',
+  Mun = 'มูล',
+  ChaoPhraya = 'เจ้าพระยา',
+  SakaeKrang = 'สะแกกรัง',
+  PaSak = 'ป่าสัก',
+  MaeKlong = 'แม่กลอง',
+  BangPakong = 'บางปะกง',
+  EastCoast = 'ชายฝั่งทะเลตะวันออก',
+  PhetchaburiPrachuap = 'เพชรบุรี-ประจวบคีรีขันธ์',
+  UpperSouth = 'ภาคใต้ตอนบน',
+  LowerSouth = 'ภาคใต้ตอนล่าง',
 }
 
 // If you need to use numeric IDs, you can create a numeric enum like this:
@@ -50,26 +71,106 @@ export enum BasinId {
   LowerSouth = 18,
 }
 
-export const BasinImgMap: Record<BasinId, string> = {
-  [BasinId.Salawin]: ImgBasinImg.Salawin,
-  [BasinId.KhongNorth]: ImgBasinImg.KhongNorth,
-  [BasinId.Ping]: ImgBasinImg.Ping,
-  [BasinId.Wang]: ImgBasinImg.Wang,
-  [BasinId.Yom]: ImgBasinImg.Yom,
-  [BasinId.Nan]: ImgBasinImg.Nan,
-  [BasinId.KhongNortheast]: ImgBasinImg.KhongNortheast,
-  [BasinId.Chi]: ImgBasinImg.Chi,
-  [BasinId.Mun]: ImgBasinImg.Mun,
-  [BasinId.ChaoPhraya]: ImgBasinImg.ChaoPhraya,
-  [BasinId.SakaeKrang]: ImgBasinImg.SakaeKrang,
-  [BasinId.PaSak]: ImgBasinImg.PaSak,
-  [BasinId.MaeKlong]: ImgBasinImg.MaeKlong,
-  [BasinId.BangPakong]: ImgBasinImg.BangPakong,
-  [BasinId.EastCoast]: ImgBasinImg.EastCoast,
-  [BasinId.PhetchaburiPrachuap]: ImgBasinImg.PhetchaburiPrachuap,
-  [BasinId.UpperSouth]: ImgBasinImg.UpperSouth,
-  [BasinId.LowerSouth]: ImgBasinImg.LowerSouth,
+// Interface สำหรับข้อมูลลุ่มน้ำ
+export interface BasinInfo {
+  id: BasinId
+  name: string
+  img: string
 }
+
+// Array ที่รวม id, name และ img ของลุ่มน้ำทั้งหมด
+export const BasinList: BasinInfo[] = [
+  {
+    id: BasinId.Salawin,
+    name: BasinName.Salawin,
+    img: ImgBasinImg.Salawin,
+  },
+  {
+    id: BasinId.KhongNorth,
+    name: BasinName.KhongNorth,
+    img: ImgBasinImg.KhongNorth,
+  },
+  {
+    id: BasinId.Ping,
+    name: BasinName.Ping,
+    img: ImgBasinImg.Ping,
+  },
+  {
+    id: BasinId.Wang,
+    name: BasinName.Wang,
+    img: ImgBasinImg.Wang,
+  },
+  {
+    id: BasinId.Yom,
+    name: BasinName.Yom,
+    img: ImgBasinImg.Yom,
+  },
+  {
+    id: BasinId.Nan,
+    name: BasinName.Nan,
+    img: ImgBasinImg.Nan,
+  },
+  {
+    id: BasinId.KhongNortheast,
+    name: BasinName.KhongNortheast,
+    img: ImgBasinImg.KhongNortheast,
+  },
+  {
+    id: BasinId.Chi,
+    name: BasinName.Chi,
+    img: ImgBasinImg.Chi,
+  },
+  {
+    id: BasinId.Mun,
+    name: BasinName.Mun,
+    img: ImgBasinImg.Mun,
+  },
+  {
+    id: BasinId.ChaoPhraya,
+    name: BasinName.ChaoPhraya,
+    img: ImgBasinImg.ChaoPhraya,
+  },
+  {
+    id: BasinId.SakaeKrang,
+    name: BasinName.SakaeKrang,
+    img: ImgBasinImg.SakaeKrang,
+  },
+  {
+    id: BasinId.PaSak,
+    name: BasinName.PaSak,
+    img: ImgBasinImg.PaSak,
+  },
+  {
+    id: BasinId.MaeKlong,
+    name: BasinName.MaeKlong,
+    img: ImgBasinImg.MaeKlong,
+  },
+  {
+    id: BasinId.BangPakong,
+    name: BasinName.BangPakong,
+    img: ImgBasinImg.BangPakong,
+  },
+  {
+    id: BasinId.EastCoast,
+    name: BasinName.EastCoast,
+    img: ImgBasinImg.EastCoast,
+  },
+  {
+    id: BasinId.PhetchaburiPrachuap,
+    name: BasinName.PhetchaburiPrachuap,
+    img: ImgBasinImg.PhetchaburiPrachuap,
+  },
+  {
+    id: BasinId.UpperSouth,
+    name: BasinName.UpperSouth,
+    img: ImgBasinImg.UpperSouth,
+  },
+  {
+    id: BasinId.LowerSouth,
+    name: BasinName.LowerSouth,
+    img: ImgBasinImg.LowerSouth,
+  },
+]
 
 // เปลี่ยน BasinStation เป็น array
 export interface BasinStationItem {
@@ -116,12 +217,12 @@ export const BasinStation: BasinStationItem[] = [
     basinId: BasinId.Chi,
     stations: [
       {
-        xCard: 80,
-        yCard: 485,
-        xStation: 230,
-        yStation: 570,
-        xProvince: 170,
-        yProvince: 570,
+        xCard: 430,
+        yCard: 585, // +100
+        xStation: 580,
+        yStation: 670, // +100
+        xProvince: 520,
+        yProvince: 670, // +100
         station_code: 'E.23',
         province: 'จ.ชัยภูมิ',
         brae_level: 9.0,
@@ -138,12 +239,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 290,
-        yCard: 430,
-        xStation: 330,
-        yStation: 530,
-        xProvince: 350,
-        yProvince: 510,
+        xCard: 640,
+        yCard: 530, // +100
+        xStation: 680,
+        yStation: 630, // +100
+        xProvince: 700,
+        yProvince: 610, // +100
         station_code: 'E.6C',
         province: 'จ.ชัยภูมิ',
         brae_level: 5.5,
@@ -160,12 +261,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 330,
-        yCard: 610,
-        xStation: 400,
-        yStation: 555,
-        xProvince: 390,
-        yProvince: 570,
+        xCard: 680,
+        yCard: 710, // +100
+        xStation: 750,
+        yStation: 655, // +100
+        xProvince: 740,
+        yProvince: 670, // +100
         province: 'จ.ชัยภูมิ',
         station_code: 'E.21',
         brae_level: 11.5,
@@ -182,12 +283,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 480,
-        yCard: 360,
-        xStation: 650,
-        yStation: 390,
-        xProvince: 560,
-        yProvince: 320,
+        xCard: 830,
+        yCard: 460, // +100
+        xStation: 1000,
+        yStation: 490, // +100
+        xProvince: 910,
+        yProvince: 420, // +100
         province: 'จ.ขอนแก่น',
         station_code: 'E.16A',
         brae_level: 9.6000003815,
@@ -204,12 +305,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 340,
-        yCard: 270,
-        xStation: 345,
-        yStation: 300,
-        xProvince: 380,
-        yProvince: 230,
+        xCard: 690,
+        yCard: 370, // +100
+        xStation: 695,
+        yStation: 400, // +100
+        xProvince: 730,
+        yProvince: 330, // +100
         province: 'จ.ขอนแก่น',
         station_code: 'E.85',
         brae_level: 5.1999998093,
@@ -226,12 +327,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 700,
-        yCard: 320,
-        xStation: 700,
-        yStation: 330,
-        xProvince: 720,
-        yProvince: 280,
+        xCard: 1050,
+        yCard: 420, // +100
+        xStation: 1050,
+        yStation: 430, // +100
+        xProvince: 1070,
+        yProvince: 380, // +100
         province: 'จ.ขอนแก่น',
         station_code: 'E.22B',
         brae_level: 10.0,
@@ -248,12 +349,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 710,
-        yCard: 480,
-        xStation: 870,
-        yStation: 445,
-        xProvince: 770,
-        yProvince: 440,
+        xCard: 1060,
+        yCard: 580, // +100
+        xStation: 1220,
+        yStation: 545, // +100
+        xProvince: 1120,
+        yProvince: 540, // +100
         province: 'จ.มหาสารคาม',
         station_code: 'E.91',
         brae_level: 11.6999998093,
@@ -270,12 +371,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 880,
-        yCard: 510,
-        xStation: 980,
-        yStation: 455,
-        xProvince: 940,
-        yProvince: 475,
+        xCard: 1230,
+        yCard: 610, // +100
+        xStation: 1330,
+        yStation: 555, // +100
+        xProvince: 1290,
+        yProvince: 575, // +100
         province: 'จ.ร้อยเอ็ด',
         station_code: 'E.66A',
         brae_level: 11.6000003815,
@@ -292,12 +393,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1080,
-        yCard: 520,
-        xStation: 1090,
-        yStation: 520,
-        xProvince: 1110,
-        yProvince: 480,
+        xCard: 1530,
+        yCard: 620, // +100
+        xStation: 1540,
+        yStation: 620, // +100
+        xProvince: 1560,
+        yProvince: 580, // +100
         province: 'จ.ร้อยเอ็ด',
         station_code: 'E.95A',
         brae_level: 8.5,
@@ -314,12 +415,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1200,
-        yCard: 420,
-        xStation: 1130,
-        yStation: 450,
-        xProvince: 1150,
-        yProvince: 440,
+        xCard: 1650,
+        yCard: 520, // +100
+        xStation: 1580,
+        yStation: 550, // +100
+        xProvince: 1600,
+        yProvince: 540, // +100
         province: 'จ.ร้อยเอ็ด',
         station_code: 'E.92',
         brae_level: 8.8000001907,
@@ -336,12 +437,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 960,
-        yCard: 640,
-        xStation: 1220,
-        yStation: 660,
-        xProvince: 1140,
-        yProvince: 660,
+        xCard: 1410,
+        yCard: 740, // +100
+        xStation: 1670,
+        yStation: 760, // +100
+        xProvince: 1590,
+        yProvince: 760, // +100
         province: 'จ.ยโสธร',
         station_code: 'E.20A',
         brae_level: 10.0,
@@ -358,12 +459,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 990,
-        yCard: 730,
-        xStation: 1280,
-        yStation: 750,
-        xProvince: 1180,
-        yProvince: 740,
+        xCard: 1440,
+        yCard: 830, // +100
+        xStation: 1730,
+        yStation: 850, // +100
+        xProvince: 1630,
+        yProvince: 840, // +100
         province: 'จ.อุบลราชธานี',
         station_code: 'E.98',
         brae_level: 11.8000001907,
@@ -412,7 +513,7 @@ export const DamStation: DamStationItem[] = [
         yValue: 290,
         water_resource_name: 'เขื่อนจุฬาภรณ์',
         measure_time: '2025-09-20T00:00:00.000Z',
-        value: 78.1500,
+        value: 78.15,
       },
     ],
   },

@@ -12,14 +12,12 @@
       class="flex flex-wrap gap-4 justify-center"
     >
       <Card
-        v-for="(item, index) in data"
-        :key="index"
-        :id="index + 1"
+        v-for="item in data"
+        :key="item.id"
+        :id="item.id"
         :title="item.name"
-        :show="item.isShow"
-        :url_scr="item.url_src"
-        :img_src="item.img_src"
-        @click="basinData(index + 1, item.name)"
+        :img="item.img"
+        @click="basinData(item.id, item.name)"
       />
     </div>
   </div>
@@ -27,25 +25,16 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
+  import { BasinList } from '~/enums/water-status'  
   import Card from '@/components/card.vue'
 
-  const data = ref(null)
+  const data = ref([] as any[])
   const loading = ref(true)
   const error = ref('')
 
   onMounted(async () => {
-    try {
-      const res = await fetch(
-        'https://nationalthaiwater.onwr.go.th/config/situation/situationConfig.json',
-      )
-      
-      if (!res.ok) throw new Error('ไม่สามารถโหลดข้อมูลได้')
-      data.value = await res.json()
-    } catch (e: any) {
-      error.value = e.message
-    } finally {
-      loading.value = false
-    }
+    data.value = BasinList
+    loading.value = false
   })
 
   const router = useRouter()

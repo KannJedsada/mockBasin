@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="mx-auto px-4 py-8">
     <div
       v-if="loading"
       class="text-center py-4"
@@ -14,151 +14,168 @@
       <p>{{ error }}</p>
     </div>
 
-    <div v-else>
-      <RainEffect />
+    <div
+      v-else
+      class="relative w-screen h-screen overflow-hidden"
+    >
+      <!-- เอฟเฟคฝน -->
+      <RainEffect
+        :drop-count="350"
+        :is-drop="true"
+        :is-flash="true"
+      />
+
+      <!-- ภาพลุ่มน้ำ -->
       <div
-        class="flex items-center justify-center fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-        style="width: 1600px; height: 900px"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150dvh] h-[150dvh] flex items-center justify-center"
       >
         <img
-          :src="getBasinImg(id)"
+          :src="getBasinImg(id as string)"
           :alt="`รูปภาพลุ่มน้ำ ${id}`"
           class="object-cover"
-          style="width: 1600px; height: 900px"
         />
-        <div
-          class="absolute top-8 left-0  transform -translate-x-1/2 text-white text-2xl font-bold rounded px-6 py-4 bg-black bg-opacity-50"
-        >
-          {{ title || 'ชื่อลุ่มน้ำ' }}
-          <br />
-          ข้อมูล ณ วันที่: {{ formatThaiDate(data[data.length - 1]?.measure_time) }}
-        </div>
+      </div>
 
-        <!-- card -->
-        <div
-          v-for="(station, index) in data"
-          :key="index"
-        >
-          <div>
-            <div
-              class="absolute"
-              :style="{
-                left: `${station.xProvince}px`,
-                top: `${station.yProvince}px`,
-                zIndex: 10,
-              }"
-            >
-              <div class="text-sm font-semibold text-gray-200">
-                {{ station.province || 'N/A' }}
-              </div>
-              <div class="text-xs text-gray-200">
-                รหัสสถานี: {{ station.station_code || 'N/A' }}
-              </div>
-            </div>
-            <div
-              :style="{
-                position: 'absolute',
-                left: `${station.xCard}px`,
-                top: `${station.yCard}px`,
-                zIndex: 10,
-              }"
-            >
-              <WaterLevel
-                :q_today="station.q_today"
-                :wl_diff="station.wl_diff"
-                :wl_diff_brae_lv="station.wl_diff_brae_lv"
-              />
-            </div>
+      <!-- title (บนซ้าย) -->
+      <div
+        class="absolute top-4 left-4 flex flex-col bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-opacity-80 rounded-xl border border-gray-700 px-2"
+      >
+        <div class="flex items-center">
+          <span
+            class="font-bold tracking-wide"
+            style="font-size: 3rem; color: white"
+          >
+            <span>สถานการณ์ลุ่มน้ำ</span>
             <span
-              class="absolute w-4 h-4 border-2 border-white rounded-full shadow-lg"
-              :class="{
-                'bg-green-400': station.wl_diff_brae_lv < 0,
-                'bg-yellow-400': station.wl_diff_brae_lv == 0,
-                'bg-red-400': station.wl_diff_brae_lv > 0,
-                'bg-gray-500': station.wl_diff_brae_lv === null,
-              }"
-              :style="{
-                position: 'absolute',
-                left: `${station.xStation}px`,
-                top: `${station.yStation}px`,
-                zIndex: 10,
-              }"
-            ></span>
-          </div>
+              class="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent font-extrabold"
+              style="font-size: 6rem"
+              :class="'animated-gradient-text'"
+            >
+              {{ title }}
+            </span>
+          </span>
         </div>
+        <div class="flex items-center gap-2 text-white text-lg font-medium">
+          <UIcon
+            name="mdi:calendar-clock"
+            class="text-blue-300 text-xl"
+          />
+          <span>
+            ข้อมูล ณ วันที่:
+            {{ formatThaiDate(data[data.length - 1]?.measure_time) }}
+          </span>
+        </div>
+      </div>
 
-        <!-- dam -->
-        <div
-          v-for="(dam, index) in dataDam"
-          :key="index"
-        >
+      <!-- logo (บนขวา) -->
+      <div class="absolute top-4 right-4">
+        <img
+          src="/images/pp.png"
+          alt="Logo"
+          class="h-60 rounded-md"
+        />
+      </div>
+      <!-- card water level -->
+      <div
+        v-for="(station, index) in data"
+        :key="index"
+      >
+        <div>
           <div
             class="absolute"
             :style="{
-              left: `${dam.xStaion}px`,
-              top: `${dam.yStation}px`,
+              left: `${station.xProvince}px`,
+              top: `${station.yProvince}px`,
               zIndex: 10,
             }"
           >
-            <div>
-              <!-- {{ dam.water_resource_name || 'N/A' }} -->
-              <img
-                src="/images/dam.webp"
-                alt="Dam Icon"
-                class="inline-block h-10 ml-1"
-              />
+            <div class="text-sm font-semibold text-gray-200">
+              {{ station.province || 'N/A' }}
+            </div>
+            <div class="text-xs text-gray-200">
+              รหัสสถานี: {{ station.station_code || 'N/A' }}
             </div>
           </div>
-          <div>
-            <CardDam
-              :water_resource_name="dam.water_resource_name"
-              :value="dam.value"
-              :style="{
-                position: 'absolute',
-                left: `${dam.xValue}px`,
-                top: `${dam.yValue}px`,
-                zIndex: 10,
-              }"
+          <div
+            :style="{
+              position: 'absolute',
+              left: `${station.xCard}px`,
+              top: `${station.yCard}px`,
+              zIndex: 10,
+            }"
+          >
+            <WaterLevel
+              :q_today="station.q_today"
+              :wl_diff="station.wl_diff"
+              :wl_diff_brae_lv="station.wl_diff_brae_lv"
             />
+          </div>
+          <span
+            class="absolute w-4 h-4 border-2 border-white rounded-full shadow-lg"
+            :class="{
+              'bg-green-400': station.wl_diff_brae_lv < 0,
+              'bg-yellow-400': station.wl_diff_brae_lv == 0,
+              'bg-red-400': station.wl_diff_brae_lv > 0,
+              'bg-gray-500': station.wl_diff_brae_lv === null,
+            }"
+            :style="{
+              position: 'absolute',
+              left: `${station.xStation}px`,
+              top: `${station.yStation}px`,
+              zIndex: 10,
+            }"
+          ></span>
+        </div>
+      </div>
+
+      <!-- symbol (ล่างซ้าย) -->
+      <div
+        class="absolute bottom-4 left-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-opacity-80 rounded-xl px-8 py-6 flex flex-wrap items-center gap-8 border border-gray-700 backdrop-blur-lg"
+      >
+        <div class="flex items-center gap-4 mr-8">
+          <span class="text-white text-lg font-semibold">สัญลักษณ์:</span>
+          <UIcon
+            name="material-symbols:arrow-shape-up-rounded"
+            class="text-green-400 text-2xl"
+          />
+          <span class="text-green-400 font-medium">เพิ่มขึ้น</span>
+          <UIcon
+            name="material-symbols:arrow-shape-down-rounded"
+            class="text-red-400 text-2xl"
+          />
+          <span class="text-red-400 font-medium">ลดลง</span>
+          <UIcon
+            name="material-symbols:equal-rounded"
+            class="text-yellow-400 text-2xl"
+          />
+          <span class="text-yellow-400 font-medium">ทรงตัว</span>
+        </div>
+
+        <div class="flex flex-col gap-2 mr-8">
+          <div class="flex items-center gap-2">
+            <span
+              class="inline-block w-5 h-5 border-2 border-white rounded-full bg-green-400"
+            ></span>
+            <span class="text-white font-medium">สถานีน้ำท่า</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span
+              class="inline-block w-5 h-5 border-2 border-white rounded-full bg-gray-500"
+            ></span>
+            <span class="text-white font-medium">ไม่มีข้อมูล</span>
           </div>
         </div>
 
-        <!-- footer -->
-        <div
-          class="absolute bottom-0 left-10 transform -translate-x-1/2 bg-black bg-opacity-50 rounded px-6 py-4 flex items-center gap-6 text-white text-lg font-semibold"
-        >
-          สัญลักษณ์:
-          <UIcon name="material-symbols:arrow-shape-up-rounded" />
-          <span>เพิ่มขึ้น</span>
-          <UIcon name="material-symbols:arrow-shape-down-rounded" />
-          <span>ลดลง</span>
-          <UIcon name="material-symbols:equal-rounded" />
-          <span>ทรงตัว</span>
-          <div class="flex flex-col items-start text-white text-md gap-2">
-            <div class="flex items-center gap-2">
-              <span
-                class="inline-block w-4 h-4 border-2 border-white rounded-full bg-green-400"
-              ></span>
-              <span>สถานีน้ำท่า</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span
-                class="inline-block w-4 h-4 border-2 border-white rounded-full bg-gray-500"
-              ></span>
-              <span>ไม่มีข้อมูล</span>
-            </div>
+        <div class="flex flex-col gap-1">
+          <div class="text-white">
+            - ระดับน้ำ
+            <span class="text-green-400 font-semibold">ต่ำ</span>
+            กว่าตลิ่ง
           </div>
-          <div class="flex flex-col items-center text-white text-md">
-            <div>
-              - ระดับน้ำ
-              <span class="text-green-500">ต่ำ</span>
-              กว่าตลิ่ง
-            </div>
-            <div>
-              + ระดับน้ำ
-              <span class="text-red-500">สูง</span>
-              กว่าตลิ่ง
-            </div>
+          <div class="text-white">
+            + ระดับน้ำ
+            <span class="text-red-400 font-semibold">สูง</span>
+            กว่าตลิ่ง
           </div>
         </div>
       </div>
@@ -167,9 +184,9 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted } from 'vue'
   import WaterLevel from '~/components/waterLevel.vue'
-  import { BasinImgMap, BasinStation, DamStation } from '~/enums/water-status'
+  import { BasinList, BasinStation, DamStation } from '~/enums/water-status'
   import RainEffect from '~/components/RainEffect.vue'
 
   const route = useRoute()
@@ -198,9 +215,10 @@
   }
 
   function getBasinImg(id: string | number) {
-    // ใช้ BasinImgMap ในการดึง path รูปภาพจาก id
+    // ใช้ BasinList ในการดึง path รูปภาพจาก id
     const numId = Number(id)
-    const imgPath = BasinImgMap[numId]
+    const basin = BasinList.find((b) => b.id === numId)
+    const imgPath = basin?.img
     // ถ้า path เป็นภาษาไทย ให้ encodeURIComponent เฉพาะชื่อไฟล์
     if (imgPath) {
       const parts = imgPath.split('/')
@@ -235,9 +253,3 @@
     }
   })
 </script>
-
-<style scoped>
-  .container {
-    max-width: 1200px;
-  }
-</style>

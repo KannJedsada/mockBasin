@@ -1,12 +1,11 @@
 <template>
   <div
-    v-if="props.show"
     class="flex flex-col border rounded-xl shadow-lg bg-white overflow-hidden hover:scale-105 transition-transform duration-200 w-96 cursor-pointer"
   >
     <!-- Header -->
     <div class="bg-gray-100 p-4">
       <h2 class="text-xl font-semibold text-center text-gray-700">
-        {{ props.title }}
+        สถานการณ์ลุ่มน้ำ{{ title }}
       </h2>
     </div>
 
@@ -14,12 +13,13 @@
     <div
       class="flex justify-center items-center p-4"
     >
-      <iframe
-        v-if="props.url_scr"
-        :src="props.url_scr"
-        :title="props.title"
-        class="rounded-lg border w-full h-64"
-      ></iframe>
+      <img
+        v-if="img"
+        :src="img"
+        :title="img"
+        :alt="props.title || ''"
+        class="rounded-lg border h-64 w-full object-cover"
+      ></img>
 
       <div
         v-else
@@ -35,9 +35,7 @@
   const props = defineProps({
     id: Number,
     title: String,
-    show: Boolean,
-    url_scr: String,
-    img_src: String,
+    img: String,
   })
 
 
