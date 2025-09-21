@@ -217,12 +217,12 @@ export const BasinStation: BasinStationItem[] = [
     basinId: BasinId.Chi,
     stations: [
       {
-        xCard: 430,
-        yCard: 585, // +100
-        xStation: 580,
-        yStation: 670, // +100
-        xProvince: 520,
-        yProvince: 670, // +100
+        xCard: 345,
+        yCard: 665,
+        xStation: 400,
+        yStation: 630,
+        xProvince: 355,
+        yProvince: 625,
         station_code: 'E.23',
         province: 'จ.ชัยภูมิ',
         brae_level: 9.0,
@@ -239,12 +239,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 640,
-        yCard: 530, // +100
-        xStation: 680,
-        yStation: 630, // +100
-        xProvince: 700,
-        yProvince: 610, // +100
+        xCard: 520,
+        yCard: 570,
+        xStation: 470,
+        yStation: 600,
+        xProvince: 450,
+        yProvince: 580,
         station_code: 'E.6C',
         province: 'จ.ชัยภูมิ',
         brae_level: 5.5,
@@ -261,12 +261,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 680,
-        yCard: 710, // +100
-        xStation: 750,
-        yStation: 655, // +100
-        xProvince: 740,
-        yProvince: 670, // +100
+        xCard: 550,
+        yCard: 710,
+        xStation: 510,
+        yStation: 635,
+        xProvince: 560,
+        yProvince: 670,
         province: 'จ.ชัยภูมิ',
         station_code: 'E.21',
         brae_level: 11.5,
@@ -283,12 +283,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 830,
-        yCard: 460, // +100
-        xStation: 1000,
-        yStation: 490, // +100
-        xProvince: 910,
-        yProvince: 420, // +100
+        xCard: 665,
+        yCard: 520,
+        xStation: 720,
+        yStation: 460,
+        xProvince: 670,
+        yProvince: 480,
         province: 'จ.ขอนแก่น',
         station_code: 'E.16A',
         brae_level: 9.6000003815,
@@ -305,14 +305,14 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 690,
-        yCard: 370, // +100
-        xStation: 695,
-        yStation: 400, // +100
-        xProvince: 730,
-        yProvince: 330, // +100
+        xCard: 780,
+        yCard: 410,
+        xStation: 735,
+        yStation: 390,
+        xProvince: 780,
+        yProvince: 370,
         province: 'จ.ขอนแก่น',
-        station_code: 'E.85',
+        station_code: 'E.22B',
         brae_level: 5.1999998093,
         measure_time: '2025-09-20T06:00:00.000Z',
         q_today: 17.7,
@@ -327,14 +327,14 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1050,
-        yCard: 420, // +100
-        xStation: 1050,
-        yStation: 430, // +100
-        xProvince: 1070,
-        yProvince: 380, // +100
+        xCard: 530,
+        yCard: 410,
+        xStation: 490,
+        yStation: 360,
+        xProvince: 540,
+        yProvince: 370,
         province: 'จ.ขอนแก่น',
-        station_code: 'E.22B',
+        station_code: 'E.85',
         brae_level: 10.0,
         measure_time: '2025-09-20T06:00:00.000Z',
         q_today: 239.06,
@@ -349,12 +349,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1060,
-        yCard: 580, // +100
-        xStation: 1220,
-        yStation: 545, // +100
-        xProvince: 1120,
-        yProvince: 540, // +100
+        xCard: 800,
+        yCard: 560,
+        xStation: 850,
+        yStation: 510,
+        xProvince: 800,
+        yProvince: 520,
         province: 'จ.มหาสารคาม',
         station_code: 'E.91',
         brae_level: 11.6999998093,
@@ -371,12 +371,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1230,
-        yCard: 610, // +100
-        xStation: 1330,
-        yStation: 555, // +100
-        xProvince: 1290,
-        yProvince: 575, // +100
+        xCard: 910,
+        yCard: 630,
+        xStation: 940,
+        yStation: 525,
+        xProvince: 920,
+        yProvince: 590,
         province: 'จ.ร้อยเอ็ด',
         station_code: 'E.66A',
         brae_level: 11.6000003815,
@@ -393,12 +393,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1530,
-        yCard: 620, // +100
-        xStation: 1540,
-        yStation: 620, // +100
-        xProvince: 1560,
-        yProvince: 580, // +100
+        xCard: 1080,
+        yCard: 650,
+        xStation: 1030,
+        yStation: 620,
+        xProvince: 1080,
+        yProvince: 610,
         province: 'จ.ร้อยเอ็ด',
         station_code: 'E.95A',
         brae_level: 8.5,
@@ -415,12 +415,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1650,
-        yCard: 520, // +100
-        xStation: 1580,
-        yStation: 550, // +100
-        xProvince: 1600,
-        yProvince: 540, // +100
+        xCard: 1090,
+        yCard: 520,
+        xStation: 1045,
+        yStation: 520,
+        xProvince: 1090,
+        yProvince: 480,
         province: 'จ.ร้อยเอ็ด',
         station_code: 'E.92',
         brae_level: 8.8000001907,
@@ -437,12 +437,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1410,
-        yCard: 740, // +100
-        xStation: 1670,
-        yStation: 760, // +100
-        xProvince: 1590,
-        yProvince: 760, // +100
+        xCard: 1050,
+        yCard: 800,
+        xStation: 1120,
+        yStation: 760,
+        xProvince: 1060,
+        yProvince: 760,
         province: 'จ.ยโสธร',
         station_code: 'E.20A',
         brae_level: 10.0,
@@ -459,12 +459,12 @@ export const BasinStation: BasinStationItem[] = [
         q_average_diff: null,
       },
       {
-        xCard: 1440,
-        yCard: 830, // +100
-        xStation: 1730,
-        yStation: 850, // +100
-        xProvince: 1630,
-        yProvince: 840, // +100
+        xCard: 1220,
+        yCard: 860,
+        xStation: 1170,
+        yStation: 830,
+        xProvince: 1230,
+        yProvince: 820,
         province: 'จ.อุบลราชธานี',
         station_code: 'E.98',
         brae_level: 11.8000001907,
