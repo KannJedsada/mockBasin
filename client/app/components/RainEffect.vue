@@ -6,7 +6,7 @@
     <div
       v-for="(drop, i) in drops"
       :key="i"
-      class="absolute bg-blue-500 rain-drop"
+      class="absolute bg-blue-500 bg-opacity-40 rain-drop"
       :style="{
         left: `${drop.left}%`,
         width: `${drop.width}px`,

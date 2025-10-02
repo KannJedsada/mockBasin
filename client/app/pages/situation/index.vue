@@ -1,9 +1,17 @@
 <template>
   <div class="p-5">
     <div class="flex flex-col items-center my-8">
-      <h1 class="text-3xl font-bold text-blue-800 mb-2 drop-shadow">
-        อินโฟกราฟิกติดตามสถานการณ์ลุ่มน้ำ
-      </h1>
+      <p
+        class="flex items-center justify-center gap-3 text-9xl font-bold animate-pulse p-6 mt-8 mb-6"
+        style="
+          background: linear-gradient(90deg, #2563eb, #38bdf8, #2563eb);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        "
+      >
+        ตัวชี้วัดความสำเร็จในการจัดการความเสี่ยงจากสาธารณภัย
+      </p>
     </div>
     <div v-if="loading">กำลังโหลดข้อมูล...</div>
     <div v-else-if="error">เกิดข้อผิดพลาด: {{ error }}</div>
@@ -25,7 +33,7 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import { BasinList } from '~/enums/water-status'  
+  import { BasinList } from '~/enums/water-status'
   import Card from '@/components/card.vue'
 
   const data = ref([] as any[])
@@ -44,7 +52,6 @@
       router.push({ path: `/situation/${id}`, query: { title } })
     }
   }
-
 </script>
 
 <style scoped>
